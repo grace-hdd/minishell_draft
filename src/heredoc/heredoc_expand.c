@@ -56,6 +56,11 @@ static int	ft_hd_dollar(char **result, char *line, int *i, t_shell *shell)
 
 	if (line[*i + 1] == '?')
 		return (ft_hd_status(result, i, shell));
+	if (ft_isdigit(line[*i + 1]))
+	{
+		*i += 2;
+		return (0);
+	}
 	if (!ft_isalpha(line[*i + 1]) && line[*i + 1] != '_')
 		return (ft_hd_literal(result, '$', i));
 	start = *i + 1;

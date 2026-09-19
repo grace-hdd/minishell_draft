@@ -43,6 +43,11 @@ char	*ft_get_var_name(char *str, int *i)
 		(*i)++;
 		return (ft_strdup("?"));
 	}
+	if (ft_isdigit(str[*i]))
+	{
+		(*i)++;
+		return (ft_substr(str, start, 1));
+	}
 	if (!(ft_isalnum(str[*i]) || str[*i] == '_'))
 		return (NULL);
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
