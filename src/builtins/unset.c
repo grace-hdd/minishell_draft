@@ -52,10 +52,19 @@ static int	unset_single_var(t_shell *shell, const char *key)
 	return (remove_env_var(shell, index));
 }
 
+static int	unset_error(t_shell *shell, const char *arg)
+{
+	write(STDERR_FILENO, "minishell: unset: `", 19);
+	write(STDERR_FILENO, arg, ft_strlen(arg));
+	write(STDERR_FILENO, "': not a valid identifier\n", 26);
+	shell->last_status = 1;
+	return (1);
+}
+
 static int	unset_one(t_shell *shell, char *arg)
 {
 	if (!ft_is_valid_identifier(arg) || ft_strchr(arg, '='))
-		return (0);
+		return (unset_error(shell, arg));
 	return (unset_single_var(shell, arg));
 }
 
@@ -70,7 +79,7 @@ int	unset_cmd(t_shell *shell, t_cmd *cmd)
 	err = 0;
 	while (cmd->args[i])
 	{
-		if (unset_one(cmd->args[i]) && unset_single_var(shell, cmd->args[i]))
+		if (unset_one(shell, cmd->args[i]))
 			err = 1;
 		i++;
 	}
