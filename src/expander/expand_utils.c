@@ -12,6 +12,27 @@
 
 #include "../../minishell.h"
 
+int	ft_update_quote(char c, char *quote)
+{
+	if (c == '\'' && *quote != '"')
+	{
+		if (*quote == '\'')
+			*quote = 0;
+		else
+			*quote = '\'';
+		return (1);
+	}
+	if (c == '"' && *quote != '\'')
+	{
+		if (*quote == '"')
+			*quote = 0;
+		else
+			*quote = '"';
+		return (1);
+	}
+	return (0);
+}
+
 char	*ft_get_var_name(char *str, int *i)
 {
 	int	start;

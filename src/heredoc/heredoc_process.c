@@ -36,7 +36,7 @@ static int	ft_open_one_heredoc(t_redir *redir)
 {
 	redir->fd = open(redir->file, O_RDONLY);
 	if (redir->fd < 0)
-		return (perror("minishell: hredoc"), 1);
+		return (perror("minishell: heredoc"), 1);
 	unlink(redir->file);
 	return (0);
 }

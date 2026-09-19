@@ -52,6 +52,23 @@ static int	ft_assign_paths(t_cmd *cmd, int *counter)
 	return (0);
 }
 
+static void	ft_discard_heredocs(t_cmd *cmds)
+{
+	t_redir	*redir;
+
+	while (cmds)
+	{
+		redir = cmds->redirs;
+		while (redir)
+		{
+			if (redir->type == TOKEN_HEREDOC && redir->file)
+				unlink(redir->file);
+			redir = redir->next;
+		}
+		cmds = cmds->next;
+	}
+}
+
 int	ft_prepare_heredocs(t_shell *shell)
 {
 	int	counter;
@@ -89,23 +106,6 @@ void	ft_cleanup_heredocs(t_cmd *cmds)
 				close(redir->fd);
 				redir->fd = -1;
 			}
-			redir = redir->next;
-		}
-		cmds = cmds->next;
-	}
-}
-
-void	ft_discard_heredocs(t_cmd *cmds)
-{
-	t_redir	*redir;
-
-	while (cmds)
-	{
-		redir = cmds->redirs;
-		while (redir)
-		{
-			if (redir->type == TOKEN_HEREDOC && redir->file)
-				unlink(redir->file);
 			redir = redir->next;
 		}
 		cmds = cmds->next;

@@ -34,7 +34,5 @@ void	ft_shell_exit(t_shell *shell, int code)
 void	ft_child_exit(t_shell *shell, char *path, int code)
 {
 	free(path);
-	ft_free_shell(shell);
-	rl_clear_history();
-	exit((unsigned char)code);
+	ft_shell_exit(shell, code);
 }

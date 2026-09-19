@@ -34,8 +34,6 @@ void	ft_free_redirs(t_redir *redir)
 	while (redir)
 	{
 		tmp = redir->next;
-		if (redir->type == TOKEN_HEREDOC && redir->file)
-			unlink(redir->file);
 		free(redir->delimiter);
 		free(redir->file);
 		free(redir);

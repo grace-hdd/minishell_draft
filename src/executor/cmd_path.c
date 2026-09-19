@@ -12,21 +12,6 @@
 
 #include "../../minishell.h"
 
-static void	ft_free_split(char **arr)
-{
-	int	i;
-
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
 static char	*ft_build_candidate(char *dir, char *cmd)
 {
 	char	*tmp;
@@ -82,6 +67,6 @@ char	*ft_get_cmd_path(char *cmd, t_shell *shell)
 	if (!paths)
 		return (NULL);
 	resolved = ft_resolve_from_path(cmd, paths);
-	ft_free_split(paths);
+	ft_free_args(paths);
 	return (resolved);
 }

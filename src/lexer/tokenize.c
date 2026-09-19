@@ -16,8 +16,6 @@ static t_token	*ft_get_next_token(char *input, int *i)
 {
 	if (input[*i] == '|' || input[*i] == '<' || input[*i] == '>')
 		return (ft_get_operator_token(input, i));
-	if (input[*i] == '\'' || input[*i] == '"')
-		return (ft_get_quoted_token(input, i));
 	return (ft_get_word_token(input, i));
 }
 

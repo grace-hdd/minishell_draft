@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-int	ft_save_stdio(int *stdin_fd, int *stdout_fd)
+static int	ft_save_stdio(int *stdin_fd, int *stdout_fd)
 {
 	*stdin_fd = dup(STDIN_FILENO);
 	if (*stdin_fd < 0)
@@ -26,7 +26,7 @@ int	ft_save_stdio(int *stdin_fd, int *stdout_fd)
 	return (0);
 }
 
-void	ft_restore_stdio(int stdin_fd, int stdout_fd)
+static void	ft_restore_stdio(int stdin_fd, int stdout_fd)
 {
 	dup2(stdin_fd, STDIN_FILENO);
 	dup2(stdout_fd, STDOUT_FILENO);

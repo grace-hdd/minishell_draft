@@ -25,8 +25,3 @@ int	ft_skip_quoted_sequence(char *input, int *i)
 	(*i)++;
 	return (0);
 }
-
-t_token	*ft_get_quoted_token(char *input, int *i)
-{
-	return (ft_get_word_token(input, i));
-}

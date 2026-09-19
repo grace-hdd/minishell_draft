@@ -33,11 +33,6 @@ t_builtin_type	ft_builtin_type(char *cmd)
 	return (BUILTIN_NONE);
 }
 
-int	ft_builtin_in_parent(t_builtin_type type)
-{
-	return (type != BUILTIN_NONE);
-}
-
 int	ft_execute_builtin(t_shell *shell, t_cmd *cmd, t_builtin_type type)
 {
 	if (type == BUILTIN_ECHO)

@@ -14,21 +14,14 @@
 
 char	*get_env_val(t_shell *shell, const char *key)
 {
-	int		i;
-	size_t	key_len;
+	int	index;
 
-	if (!shell || !shell->env || !key)
+	if (!shell || !key)
 		return (NULL);
-	key_len = ft_strlen(key);
-	i = 0;
-	while (shell->env[i])
-	{
-		if (ft_strncmp(shell->env[i], key, key_len) == 0
-			&& shell->env[i][key_len] == '=')
-			return (shell->env[i] + key_len + 1);
-		i++;
-	}
-	return (NULL);
+	index = ft_env_index(shell->env, key);
+	if (index < 0 || shell->env[index][ft_strlen(key)] != '=')
+		return (NULL);
+	return (shell->env[index] + ft_strlen(key) + 1);
 }
 
 static char	*create_env_str(const char *key, const char *value)
@@ -65,30 +58,20 @@ int	add_new_env(t_shell *shell, char *new_entry)
 	return (0);
 }
 
-static int	update_existing_env(t_shell *shell, const char *key,
-		size_t key_len, char *new_entry)
+static int	update_env(t_shell *shell, const char *key, char *new_entry)
 {
-	int		i;
+	int		index;
 
-	i = 0;
-	while (shell->env && shell->env[i])
-	{
-		if (ft_strncmp(shell->env[i], key, key_len) == 0
-			&& (shell->env[i][key_len] == '=' 
-			|| shell->env[i][key_len] == '\0'))
-		{
-			free(shell->env[i]);
-			shell->env[i] = new_entry;
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+	index = ft_env_index(shell->env, key);
+	if (index < 0)
+		return (0);
+	free(shell->env[index]);
+	shell->env[index] = new_entry;
+	return (1);
 }
 
 int	set_env_val(t_shell *shell, const char *key, const char *value)
 {
-	size_t	key_len;
 	char	*new_entry;
 
 	if (!shell || !key || !value)
@@ -96,8 +79,7 @@ int	set_env_val(t_shell *shell, const char *key, const char *value)
 	new_entry = create_env_str(key, value);
 	if (!new_entry)
 		return (1);
-	key_len = ft_strlen(key);
-	if (update_existing_env(shell, key, key_len, new_entry))
+	if (update_env(shell, key, new_entry))
 		return (0);
 	if (add_new_env(shell, new_entry))
 	{

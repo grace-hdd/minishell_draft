@@ -12,24 +12,6 @@
 
 #include "../../minishell.h"
 
-static void	ft_update_quote(char c, char *quote)
-{
-	if (c == '\'' && *quote != '"')
-	{
-		if (*quote == '\'')
-			*quote = 0;
-		else
-			*quote = '\'';
-	}
-	else if (c == '"' && *quote != '\'')
-	{
-		if (*quote == '"')
-			*quote = 0;
-		else
-			*quote = '"';
-	}
-}
-
 int	ft_validate_quotes(char *input)
 {
 	char	quote;

@@ -53,7 +53,8 @@ SRC_EXPAND	:= expand.c \
 			   expand_var.c
 
 SRC_ENV		:= env_init.c \
-			   env_utils.c
+			   env_utils.c \
+			   env_find.c
 
 SRC_BUILTIN	:= builtin_dispatch.c \
 			   cd.c \

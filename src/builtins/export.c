@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-static int	is_valid_identifier(const char *str)
+int	ft_is_valid_identifier(const char *str)
 {
 	int	i;
 
@@ -39,20 +39,10 @@ static int	export_error(t_shell *shell, const char *arg)
 
 static int	add_key_if_missing(t_shell *shell, const char *key)
 {
-	int		i;
-	size_t	key_len;
 	char	*entry;
 
-	i = 0;
-	key_len = ft_strlen(key);
-	while (shell->env && shell->env[i])
-	{
-		if (ft_strncmp(shell->env[i], key, key_len) == 0
-			&& (shell->env[i][key_len] == '='
-			|| shell->env[i][key_len] == '\0'))
-			return (0);
-		i++;
-	}
+	if (ft_env_index(shell->env, key) >= 0)
+		return (0);
 	entry = ft_strdup(key);
 	if (!entry)
 		return (1);
@@ -67,7 +57,7 @@ static int	process_export_arg(t_shell *shell, char *arg)
 	char	*key;
 	int		status;
 
-	if (!is_valid_identifier(arg))
+	if (!ft_is_valid_identifier(arg))
 		return (export_error(shell, arg));
 	eq = ft_strchr(arg, '=');
 	if (!eq)

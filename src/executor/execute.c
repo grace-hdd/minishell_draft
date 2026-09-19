@@ -28,7 +28,7 @@ void	ft_execute(t_shell *shell)
 	type = BUILTIN_NONE;
 	if (cmd->args && cmd->args[0])
 		type = ft_builtin_type(cmd->args[0]);
-	if (type != BUILTIN_NONE && cmd->next == NULL && ft_builtin_in_parent(type))
+	if (type != BUILTIN_NONE && cmd->next == NULL)
 	{
 		shell->last_status = ft_execute_parent_builtin(shell, cmd, type);
 		return ;

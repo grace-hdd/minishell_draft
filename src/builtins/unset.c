@@ -40,42 +40,23 @@ static int	remove_env_var(t_shell *shell, int index)
 	return (0);
 }
 
-static int	is_valid_unset_key(const char *str)
-{
-	int	i;
-
-	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
-		return (0);
-	i = 1;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 static int	unset_single_var(t_shell *shell, const char *key)
 {
-	int		i;
-	size_t	key_len;
+	int		index;
 
-	if (!shell || !shell->env || !key)
+	if (!shell || !key)
 		return (0);
-	key_len = ft_strlen(key);
-	i = 0;
-	while (shell->env[i])
-	{
-		if (ft_strncmp(shell->env[i], key, key_len) == 0
-			&& (shell->env[i][key_len] == '='
-			|| shell->env[i][key_len] == '\0'))
-		{
-			return (remove_env_var(shell, i));
-		}
-		i++;
-	}
-	return (0);
+	index = ft_env_index(shell->env, key);
+	if (index < 0)
+		return (0);
+	return (remove_env_var(shell, index));
+}
+
+static int	unset_one(t_shell *shell, char *arg)
+{
+	if (!ft_is_valid_identifier(arg) || ft_strchr(arg, '='))
+		return (0);
+	return (unset_single_var(shell, arg));
 }
 
 int	unset_cmd(t_shell *shell, t_cmd *cmd)
@@ -89,7 +70,7 @@ int	unset_cmd(t_shell *shell, t_cmd *cmd)
 	err = 0;
 	while (cmd->args[i])
 	{
-		if (is_valid_unset_key(cmd->args[i]) && unset_single_var(shell, cmd->args[i]))
+		if (unset_one(cmd->args[i]) && unset_single_var(shell, cmd->args[i]))
 			err = 1;
 		i++;
 	}

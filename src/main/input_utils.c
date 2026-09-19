@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grhaddad <grhaddad@student.42beirut.com    +#+  +:+       +#+        */
+/*   By: ysarrouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/31 19:10:00 by copilot           #+#    #+#             */
-/*   Updated: 2026/08/31 19:10:00 by copilot          ###   ########.fr       */
+/*   Created: 2026/09/19 12:07:27 by ysarrouh          #+#    #+#             */
+/*   Updated: 2026/09/19 12:07:27 by ysarrouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_build_cmd(char *input, t_shell *shell)
 	return (0);
 }
 
-int	ft_is_blank(const char *input)
+static int	ft_is_blank(const char *input)
 {
 	if (!input)
 		return (1);
@@ -42,7 +42,7 @@ int	ft_is_blank(const char *input)
 	return (*input == '\0');
 }
 
-int	ft_has_unclosed_quote(char *input)
+static int	ft_has_unclosed_quote(char *input)
 {
 	char	quote;
 	int		i;
@@ -51,20 +51,7 @@ int	ft_has_unclosed_quote(char *input)
 	i = 0;
 	while (input && input[i])
 	{
-		if (input[i] == '\'' && quote != '"')
-		{
-			if (quote == '\'')
-				quote = 0;
-			else
-				quote = '\'';
-		}
-		else if (input[i] == '"' && quote != '\'')
-		{
-			if (quote == '"')
-				quote = 0;
-			else
-				quote = '"';
-		}
+		ft_update_quote(input[i], &quote);
 		i++;
 	}
 	return (quote != 0);

@@ -14,23 +14,16 @@
 
 char	*ft_get_var_value(char *name, t_shell *shell)
 {
-	int		i;
-	size_t	len;
+	char	*value;
 
 	if (!name || !shell)
 		return (ft_strdup(""));
 	if (ft_strncmp(name, "?", 2) == 0)
 		return (ft_itoa(shell->last_status));
-	len = ft_strlen(name);
-	i = 0;
-	while (shell->env && shell->env[i])
-	{
-		if (ft_strncmp(shell->env[i], name, len) == 0
-			&& shell->env[i][len] == '=')
-			return (ft_strdup(shell->env[i] + len + 1));
-		i++;
-	}
-	return (ft_strdup(""));
+	value = get_env_val(shell, name);
+	if (!value)
+		return (ft_strdup(""));
+	return (ft_strdup(value));
 }
 
 static char	*ft_expand_var(char *str, int *i, t_shell *shell)
@@ -47,27 +40,6 @@ static char	*ft_expand_var(char *str, int *i, t_shell *shell)
 	if (!value)
 		return (ft_strdup(""));
 	return (value);
-}
-
-static int	ft_update_quote(char c, char *quote)
-{
-	if (c == '\'' && *quote != '"')
-	{
-		if (*quote == '\'')
-			*quote = 0;
-		else
-			*quote = '\'';
-		return (1);
-	}
-	if (c == '"' && *quote != '\'')
-	{
-		if (*quote == '"')
-			*quote = 0;
-		else
-			*quote = '"';
-		return (1);
-	}
-	return (0);
 }
 
 static int	ft_process_expand_char(t_expand exp, char **result)

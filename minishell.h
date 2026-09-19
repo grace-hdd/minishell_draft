@@ -115,7 +115,6 @@ void			ft_token_add_back(t_token **head, t_token *current);
 void			ft_free_tokens(t_token *head);
 int				ft_is_stop_char(char c);
 t_token			*ft_get_operator_token(char *input, int *i);
-t_token			*ft_get_quoted_token(char *input, int *i);
 t_token			*ft_get_word_token(char *input, int *i);
 int				ft_skip_quoted_sequence(char *input, int *i);
 
@@ -139,6 +138,7 @@ char			*ft_get_var_name(char *str, int *i);
 char			*ft_strjoin_free(char *s1, char *s2);
 char			*ft_char_to_str(char c);
 int				ft_process_backslash(t_expand exp, char **result);
+int				ft_update_quote(char c, char *quote);
 
 /* ERROR */
 int				ft_error_msg(const char *msg);
@@ -155,6 +155,7 @@ int				echo_cmd(t_shell *shell, t_cmd *cmd);
 int				cd_cmd(t_shell *shell, t_cmd *cmd);
 int				set_env_val(t_shell *shell, const char *key, const char *value);
 char			*get_env_val(t_shell *shell, const char *key);
+int				ft_env_index(char **env, const char *key);
 int				env_cmd(t_shell *shell, t_cmd *cmd);
 int				add_new_env(t_shell *shell, char *new_entry);
 int				export_cmd(t_shell *shell, t_cmd *cmd);
@@ -165,10 +166,8 @@ void			init_environment(t_shell *shell, char **envp);
 void			free_environment(t_shell *shell);
 char			*ft_get_cmd_path(char *cmd, t_shell *shell);
 t_builtin_type	ft_builtin_type(char *cmd);
-int				ft_builtin_in_parent(t_builtin_type type);
-int				ft_execute_builtin(t_shell *shell, t_cmd *cmd,
-					t_builtin_type type);
-
+int				ft_execute_builtin(t_shell *shell, t_cmd *cmd, t_builtin_type type);
+int				ft_is_valid_identifier(const char *str);
 /* EXECUTION */
 void			ft_execute(t_shell *shell);
 int				ft_execute_parent_builtin(t_shell *shell, t_cmd *cmd,
@@ -177,8 +176,6 @@ int				ft_execute_pipeline(t_shell *shell);
 int				ft_execute_child_cmd(t_shell *shell, t_cmd *cmd);
 int				ft_execute_external(t_shell *shell, t_cmd *cmd);
 int				ft_redirection(t_redir *redirs);
-int				ft_save_stdio(int *stdin_fd, int *stdout_fd);
-void			ft_restore_stdio(int stdin_fd, int stdout_fd);
 int				ft_execute_redir_only(t_cmd *cmd);
 void			ft_child_exit(t_shell *shell, char *path, int code);
 
@@ -196,7 +193,6 @@ int				ft_hd_write_all(int fd, char *str);
 char			*ft_expand_heredoc(char *line, t_shell *shell);
 char			*ft_hd_delimiter(char *raw, int *expand);
 char			*ft_hd_temp_path(int *counter);
-void			ft_discard_heredocs(t_cmd *cmds);
 
 /* PIPELINE */
 void			ft_close_fd(int *fd);
@@ -207,9 +203,6 @@ void			ft_free_shell(t_shell *shell);
 void			ft_shell_exit(t_shell *shell, int code);
 
 /* MAIN */
-int				ft_build_cmd(char *input, t_shell *shell);
-int				ft_is_blank(const char *input);
-int				ft_has_unclosed_quote(char *input);
 char			*ft_read_input(void);
 int				ft_process_input(char *input, t_shell *shell);
 
