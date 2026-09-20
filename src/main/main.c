@@ -19,7 +19,7 @@ static int	ft_shell_loop(t_shell *shell)
 	while (1)
 	{
 		setup_signals();
-		shell->input = ft_read_input();
+		shell->input = readline("minishell$ ");
 		if (g_signal == SIGINT)
 		{
 			shell->last_status = 130;

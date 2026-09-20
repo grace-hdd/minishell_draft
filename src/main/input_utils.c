@@ -42,49 +42,6 @@ static int	ft_is_blank(const char *input)
 	return (*input == '\0');
 }
 
-static int	ft_has_unclosed_quote(char *input)
-{
-	char	quote;
-	int		i;
-
-	quote = 0;
-	i = 0;
-	while (input && input[i])
-	{
-		ft_update_quote(input[i], &quote);
-		i++;
-	}
-	return (quote != 0);
-}
-
-char	*ft_read_input(void)
-{
-	char	*input;
-	char	*line;
-	char	*joined;
-
-	input = readline("minishell$ ");
-	while (input && ft_has_unclosed_quote(input))
-	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		joined = ft_strjoin(input, "\n");
-		free(input);
-		if (!joined)
-		{
-			free(line);
-			return (NULL);
-		}
-		input = ft_strjoin(joined, line);
-		free(joined);
-		free(line);
-		if (!input)
-			return (NULL);
-	}
-	return (input);
-}
-
 int	ft_process_input(char *input, t_shell *shell)
 {
 	if (ft_is_blank(input))

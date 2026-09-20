@@ -203,7 +203,6 @@ void			ft_free_shell(t_shell *shell);
 void			ft_shell_exit(t_shell *shell, int code);
 
 /* MAIN */
-char			*ft_read_input(void);
 int				ft_process_input(char *input, t_shell *shell);
 
 #endif
