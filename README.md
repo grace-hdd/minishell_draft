@@ -275,7 +275,5 @@ Documentation and references used while building the project:
 - **Reviewing the Norm.** Checking which functions exceeded 25 lines and
   discussing how to split them into helper functions, before applying the split
   ourselves.
-- **Documentation.** Drafting the structure of this `README.md`, which was then
-  corrected and completed by hand against the real source tree.
 
 ---
