@@ -166,7 +166,8 @@ void			init_environment(t_shell *shell, char **envp);
 void			free_environment(t_shell *shell);
 char			*ft_get_cmd_path(char *cmd, t_shell *shell);
 t_builtin_type	ft_builtin_type(char *cmd);
-int				ft_execute_builtin(t_shell *shell, t_cmd *cmd, t_builtin_type type);
+int				ft_execute_builtin(t_shell *shell, t_cmd *cmd,
+					t_builtin_type type);
 int				ft_is_valid_identifier(const char *str);
 /* EXECUTION */
 void			ft_execute(t_shell *shell);
