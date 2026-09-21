@@ -266,8 +266,6 @@ Documentation and references used while building the project:
 
 ### Use of AI
 
-> **Note for the team: edit this section so it matches exactly what you actually did — the subject requires you to state for which tasks and which parts of the project AI was used, and you must be able to justify every line of the project during the defence.**
-
 - **Understanding concepts.** Asking for explanations of `dup2()` semantics,
   the order of file-descriptor closing in a pipeline, and the difference between
   `signal()` and `sigaction()`. The explanations were then verified against the
