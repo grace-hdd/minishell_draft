@@ -60,6 +60,7 @@ Multiple redirections on the same command are applied left to right.
 ### Quotes
 - `'single quotes'` prevent every interpretation, including `$`.
 - `"double quotes"` prevent every interpretation **except** `$`.
+- Unclosed quotes are reported as an error instead of being interpreted.
 
 ### Expansion
 - `$VAR` expands to its value in the shell environment, or to an empty string

@@ -29,7 +29,7 @@ int	ft_syntax_error(const char *token)
 		ft_putstr_fd((char *)token, 2);
 	else
 		ft_putstr_fd("newline", 2);
-	ft_putendl_fd("'", 2);
+	ft_putendl_fd("`", 2);
 	return (2);
 }
 
