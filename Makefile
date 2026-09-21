@@ -6,25 +6,12 @@ DEPFLAGS	:= -MMD -MP
 
 SRC_DIR		:= src
 OBJ_DIR		:= obj
-INC_DIR		:= includes
+HEADER		:= minishell.h
 LIBFT_DIR	:= libft
 LIBFT		:= $(LIBFT_DIR)/libft.a
 
-# ---------------------------------------------------------------- platform --
-
-UNAME_S		:= $(shell uname -s)
-
-ifeq ($(UNAME_S), Darwin)
-RL_DIR		:= $(shell brew --prefix readline)
-RL_INC		:= -I$(RL_DIR)/include
-RL_LIB		:= -L$(RL_DIR)/lib -lreadline
-else
-RL_INC		:=
-RL_LIB		:= -lreadline
-endif
-
-INCLUDES	:= -I$(INC_DIR) -I$(SRC_DIR) -I$(LIBFT_DIR) $(RL_INC)
-LDFLAGS		:= $(RL_LIB)
+INCLUDES	:= -I. -I$(SRC_DIR) -I$(LIBFT_DIR)
+LDFLAGS		:= -lreadline
 
 # ----------------------------------------------------------------- sources --
 
@@ -127,7 +114,7 @@ fclean: clean
 re: fclean all
 
 norm:
-	@norminette $(SRC_DIR) $(INC_DIR) $(LIBFT_DIR)
+	@norminette $(SRC_DIR) $(HEADER) $(LIBFT_DIR)
 
 -include $(DEPS)
 
