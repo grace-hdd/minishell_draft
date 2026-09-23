@@ -32,8 +32,6 @@ static char	*ft_expand_var(char *str, int *i, t_shell *shell)
 	char	*value;
 
 	(*i)++;
-	if (str[*i] == '\'' || str[*i] == '"')
-		return (ft_strdup(""));
 	name = ft_get_var_name(str, i);
 	if (!name)
 		return (NULL);
@@ -54,9 +52,7 @@ static int	ft_process_expand_char(t_expand exp, char **result)
 	{
 		if (exp.str[*exp.i + 1] == '?'
 			|| ft_isalnum(exp.str[*exp.i + 1])
-			|| exp.str[*exp.i + 1] == '_'
-			|| exp.str[*exp.i + 1] == '\''
-			|| exp.str[*exp.i + 1] == '"')
+			|| exp.str[*exp.i + 1] == '_')
 			tmp = ft_expand_var(exp.str, exp.i, exp.shell);
 		else
 		{
@@ -70,7 +66,9 @@ static int	ft_process_expand_char(t_expand exp, char **result)
 		return (1);
 	*result = ft_strjoin_free(*result, tmp);
 	free(tmp);
-	return (!*result);
+	if (!*result)
+		return (1);
+	return (0);
 }
 
 char	*ft_expand_str(char *str, t_shell *shell)

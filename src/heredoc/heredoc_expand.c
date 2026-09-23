@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grhaddad <grhaddad@student.42beirut.com    +#+  +:+       +#+        */
+/*   By: grhaddad <grhaddad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/08 13:09:04 by ysarrouh          #+#    #+#             */
-/*   Updated: 2026/08/26 20:24:07 by grhaddad         ###   ########.fr       */
+/*   Updated: 2026/09/22 15:44:35 by grhaddad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
